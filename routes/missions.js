@@ -38,10 +38,14 @@ router.route('/')
         // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
         var name = req.body.name;
         var company = req.body.company;
+        var description = req.body.description;
+        var image = req.body.image;
         //call the create function for our database
         mongoose.model('Mission').create({
             name: name,
-            company: company
+            company: company,
+            description : description,
+            image: image
         }, function (err, mission) {
             if (err) {
                 res.send("There was a problem adding the information to the database.");
@@ -88,35 +92,23 @@ router.param('id', function (req, res, next, id) {
     });
 });
 
-router.route('/:id')
-    .get(function (req, res) {
-        mongoose.model('Mission').findById(req.id, function (err, mission) {
-            if (err) {
-                console.log('GET Error: There was a problem retrieving: ' + err);
-            } else {
-                console.log('GET Retrieving ID: ' + mission._id);
-                res.format({
-                    json: function () {
-                        res.json(mission);
-                    }
-                });
-            }
-        });
-    });
-
 router.route('/:id/edit')
     //PUT to update a mission by ID
     .put(function (req, res) {
         // Get our REST or form values. These rely on the "name" attributes
         var name = req.body.name;
         var company = req.body.company;
+        var description = req.body.description;
+        var image = req.body.image;
 
         //find the document by ID
         mongoose.model('Mission').findById(req.id, function (err, mission) {
             //update it
             mission.update({
                 name: name,
-                company: company
+                company: company,
+                description: description,
+                image: image
             }, function (err, missionID) {
                 if (err) {
                     res.send("There was a problem updating the information to the database: " + err);
