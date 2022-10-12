@@ -92,6 +92,22 @@ router.param('id', function (req, res, next, id) {
     });
 });
 
+router.route('/:id')
+    .get(function (req, res) {
+        mongoose.model('Mission').findById(req.id, function (err, mission) {
+            if (err) {
+                console.log('GET Error: There was a problem retrieving: ' + err);
+            } else {
+                console.log('GET Retrieving ID: ' + mission._id);
+                res.format({
+                    json: function () {
+                        res.json(mission);
+                    }
+                });
+            }
+        });
+    });
+
 router.route('/:id/edit')
 
     //PUT to update a mission by ID
