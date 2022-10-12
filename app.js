@@ -1,17 +1,17 @@
-var express = require('express'),
+const express = require('express'),
     path = require('path'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser');
 
-var db = require('./model/db'),
+const db = require('./model/db'),
     mission = require('./model/missions');
+    user = require('./model/users');
 
-var routes = require('./routes/index'),
+const routes = require('./routes/index'),
     missions = require('./routes/missions');
-
-//var users = require('./routes/users');
+    users = require('./routes/users');
 
 var app = express();
 
@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/missions', missions);
-//app.use('/users', users);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
