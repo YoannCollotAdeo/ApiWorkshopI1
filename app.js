@@ -8,10 +8,12 @@ const express = require('express'),
 const db = require('./model/db'),
     mission = require('./model/missions');
     user = require('./model/users');
+    like = require('./model/likes');
 
 const routes = require('./routes/index'),
     missions = require('./routes/missions');
     users = require('./routes/users');
+    likes = require('./routes/likes');
 
 var app = express();
 
@@ -30,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/missions', missions);
 app.use('/users', users);
+app.use('/likes', likes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
